@@ -88,27 +88,33 @@
                         </div>
                         
                         <h3 class="mt-4"> Cart Details </h3>
-                        
+                        <div class="items-div">
+                            <div class="row mt-3 ">
+                                <div class="col">
+                                    <select id="item" class="form-select" aria-label="Item" name="item[]">
+                                        <option>--- Item ---</option>
+                                        @foreach($products as $product)
+                                        <option value="{{ $product->id }}">{{ $product->name }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('item')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="col">
+                                    <input type="number" class="form-control" placeholder="Quantity" aria-label="Quantity" name="quantity[]">
+                                    @error('quantity')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="col">
+                                    <input type="text" class="form-control" placeholder="Discount Code" aria-label="Discount Code" name="discount_code[]">
+                                </div>
+                            </div>
+                        </div>
                         <div class="row mt-3">
-                            <div class="col">
-                                <select id="item" class="form-select" aria-label="Item" name="item[]">
-                                    <option>--- Item ---</option>
-                                    @foreach($products as $product)
-                                    <option value="{{ $product->id }}">{{ $product->name }}</option>
-                                    @endforeach
-                                </select>
-                                @error('item')
-                                <div class="alert alert-danger">{{ $message }}</div>
-                                @enderror
-                            </div>
-                            <div class="col">
-                                <input type="number" class="form-control" placeholder="Quantity" aria-label="Quantity" name="quantity[]">
-                                @error('quantity')
-                                <div class="alert alert-danger">{{ $message }}</div>
-                                @enderror
-                            </div>
-                            <div class="col">
-                                <input type="text" class="form-control" placeholder="Discount Code" aria-label="Discount Code" name="discount_code[]">
+                            <div class="col-12 mt-3 text-end">
+                                <button type="button" class="btn btn-success mb-3 add-item">add</button>
                             </div>
                         </div>
                         <div class="col-auto mt-3">
@@ -120,4 +126,14 @@
         </div>
     </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+<script>
+    $(document).ready(function(){
+        let option_html = '@foreach($products as $product)<option value="{{ $product->id }}">{{ $product->name }}</option>@endforeach';
+        $('.add-item').click(function(){
+            let html = '<div class="row mt-3 "><div class="col"><select id="item" class="form-select" aria-label="Item" name="item[]"><option>--- Item ---</option>'+option_html+'</select></div><div class="col"><input type="number" class="form-control" placeholder="Quantity" aria-label="Quantity" name="quantity[]"></div><div class="col"><input type="text" class="form-control" placeholder="Discount Code" aria-label="Discount Code" name="discount_code[]"></div></div>';
+            $('.items-div').append(html);
+        });
+    });
+</script>
 @endsection

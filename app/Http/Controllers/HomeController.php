@@ -84,7 +84,7 @@ class HomeController extends Controller
             if(!empty($products)){
                 $order_product['product_id'] = $products->id;
                 $order_product['net_amount'] = $products->price;
-                $product_discounts = ProductDiscounts::where('code', $request->discount_code)->first();
+                $product_discounts = ProductDiscounts::where('code', $request->discount_code[$key])->first();
                 if(
                     !empty($product_discounts) && 
                     $product_discounts->product_id == $item && 
