@@ -9,4 +9,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class CustomersInOutTime extends Model
 {
     use HasFactory, SoftDeletes;
+
+    protected $fillable = [
+        'customer_id',
+        'in_time',
+        'out_time',
+    ];
 }
